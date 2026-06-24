@@ -1,0 +1,32 @@
+services:
+
+  pgadmin:
+    extends:
+      file: ops/pgadmin/service.yml
+      service: pgadmin
+
+  postgres:
+    extends:
+      file: ops/postgres/service.yml
+      service: postgres
+
+  redis-memory:
+    extends:
+      file: ops/redis-memory/service.yml
+      service: redis-memory
+
+  redis-sidekiq:
+    extends:
+      file: ops/redis-sidekiq/service.yml
+      service: redis-sidekiq
+
+  ruby:
+    extends:
+      file: ops/ruby/service.yml
+      service: ruby
+
+volumes:
+  pgadmin:
+  pg_data:
+  redis_sidekiq_data:
+  bundle_cache:

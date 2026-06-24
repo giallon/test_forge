@@ -1,0 +1,17 @@
+services:
+  redis-sidekiq:
+    image: redis:7
+    environment:
+      REDIS_SIDEKIQ_PORT: ${REDIS_SIDEKIQ_PORT:-6379}
+    ports:
+      - "${REDIS_SIDEKIQ_PORT}:6379"
+    volumes:
+      - redis_sidekiq_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      start_period: 5s
+      timeout: 10s
+      retries: 3
+volumes:
+  redis_sidekiq_data:
