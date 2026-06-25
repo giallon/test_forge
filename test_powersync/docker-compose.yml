@@ -10,7 +10,7 @@ services:
 
   postgres:
     extends:
-      file: ops/services/postgis.yml
+      file: ops/services/postgres.yml
       service: postgres
 
   powersync:

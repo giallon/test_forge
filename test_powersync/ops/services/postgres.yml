@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgis/postgis:15-3.3
+    image: postgres:15
 
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -12,13 +12,12 @@ services:
 
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ../config/postgis/init:/docker-entrypoint-initdb.d
 
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres}"
         ]
       interval: 5s
       timeout: 5s
