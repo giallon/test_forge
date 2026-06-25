@@ -13,6 +13,14 @@ services:
       file: ops/services/postgis.yml
       service: postgres
 
+  powersync:
+    extends:
+      file: ops/services/powersync.yml
+      service: powersync
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   redis-memory:
     extends:
       file: ops/services/redis-memory.yml
