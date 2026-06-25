@@ -1,0 +1,13 @@
+services:
+  ruby:
+    build:
+      context: .
+      dockerfile: ../config/ruby/Dockerfile
+    working_dir: /workspaces
+    volumes:
+      - ../..:/workspaces
+      - bundle_cache:/usr/local/bundle
+    stdin_open: true
+    tty: true
+volumes:
+  bundle_cache:
