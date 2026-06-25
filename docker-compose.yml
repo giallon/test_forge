@@ -2,28 +2,38 @@ services:
 
   pgadmin:
     extends:
-      file: ops/pgadmin/service.yml
+      file: ops/services/pgadmin.yml
       service: pgadmin
+    depends_on:
+      postgres: 
+        condition: service_healthy
 
   postgres:
     extends:
-      file: ops/postgres/service.yml
+      file: ops/services/postgres.yml
       service: postgres
 
   redis-memory:
     extends:
-      file: ops/redis-memory/service.yml
+      file: ops/services/redis-memory.yml
       service: redis-memory
 
   redis-sidekiq:
     extends:
-      file: ops/redis-sidekiq/service.yml
+      file: ops/services/redis-sidekiq.yml
       service: redis-sidekiq
 
   ruby:
     extends:
-      file: ops/ruby/service.yml
+      file: ops/services/ruby.yml
       service: ruby
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-memory:
+        condition: service_healthy
+      redis-sidekiq:
+        condition: service_healthy
 
 volumes:
   pgadmin:
