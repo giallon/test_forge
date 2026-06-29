@@ -1,0 +1,50 @@
+services:
+
+  powersync:
+    extends:
+      file: ops/services/powersync.yml
+      service: powersync
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  redis-memory:
+    extends:
+      file: ops/services/redis-memory.yml
+      service: redis-memory
+
+  redis-sidekiq:
+    extends:
+      file: ops/services/redis-sidekiq.yml
+      service: redis-sidekiq
+
+  ruby:
+    extends:
+      file: ops/services/ruby.yml
+      service: ruby
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-memory:
+        condition: service_healthy
+      redis-sidekiq:
+        condition: service_healthy
+
+  postgres:
+    extends:
+      file: ops/services/timescaleDB.yml
+      service: timescaledb
+  
+  pgadmin:
+    extends:
+      file: ops/services/pgadmin.yml
+      service: pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  redis_sidekiq_data:
+  bundle_cache:
+  pg_data:
+  pgadmin:
